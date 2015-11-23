@@ -122,6 +122,11 @@
                     return deferred.promise;
                 } else if (params.serie && params.files.length > 0) {
                     return $q.all(promises).then(function () {
+                        // added by Goran
+                        if (params.files.length == 0) {
+                            return;
+                        }
+                        // end
                         return $delegate.filesLoader(config, params);
                     });
                 } else {

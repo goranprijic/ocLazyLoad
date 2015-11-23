@@ -116,7 +116,14 @@
                     deferred.reject(err);
                     return deferred.promise;
                 } else if(params.serie && params.files.length > 0) {
-                    return $q.all(promises).then(() => $delegate.filesLoader(config, params));
+                    return $q.all(promises).then(() => {
+                        // added by Goran
+                        if (params.files.length == 0) {
+                            return;
+                        }
+                        // end
+                        return $delegate.filesLoader(config, params)
+                    });
                 } else {
                     return $q.all(promises).finally(res => {
                         $delegate.toggleWatch(false); // stop watching angular.module calls
